@@ -1,6 +1,6 @@
+import { PropsWithChildren } from "react";
 import { SortOrder } from "@/constants";
 import { AxiosResponse } from "axios";
-import { ReactNode } from "react";
 
 export type BaseParams = {
     page?: number;
@@ -10,9 +10,7 @@ export type BaseParams = {
     pageSize?: number;
 };
 
-export type PropsWithChildren<T = {}> = T & {
-    children?: ReactNode;
-};
+export type PropsWithChildrenType = PropsWithChildren;
 
 export interface Pagination {
     page: number;

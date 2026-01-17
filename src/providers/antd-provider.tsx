@@ -3,9 +3,9 @@
 import { App as AntdApp, ConfigProvider } from 'antd';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import viVN from 'antd/locale/vi_VN';
-import type { PropsWithChildren } from '@/interfaces';
+import type { PropsWithChildrenType } from '@/interfaces';
 
-export function AntdProvider({ children }: PropsWithChildren) {
+export function AntdProvider({ children }: PropsWithChildrenType) {
   return (
     <AntdRegistry>
       <ConfigProvider
