@@ -12,7 +12,7 @@ const axiosInstance = Axios.create({
 const redirectLogin = () => {
   store.dispatch(clearCredentials());
 
-  window.location.replace('/login');
+  window.location.replace('/auth/login');
 };
 
 axiosInstance.interceptors.response.use(

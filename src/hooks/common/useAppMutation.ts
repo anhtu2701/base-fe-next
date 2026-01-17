@@ -64,7 +64,7 @@ export function useAppMutation<TData = unknown, TVariables = void, TContext = un
         } else {
           const errorMessage = (error.response?.data as any)?.message || 'Có lỗi xảy ra';
           notification.error({
-            message: 'Lỗi',
+            message: (error.response?.data as any)?.code || 'Lỗi',
             description: errorMessage,
           });
         }
