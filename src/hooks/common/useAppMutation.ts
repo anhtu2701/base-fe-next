@@ -1,77 +1,59 @@
-import { useMutation, UseMutationOptions, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { useFeedback } from './useFeedback';
+import {
+  DefaultError,
+  MutationFunction,
+  UseMutationOptions,
+  UseMutationResult,
+  useMutation,
+} from "@tanstack/react-query";
+import { FormInstance } from "antd";
 
-interface NotificationConfig {
-  message: string;
-  description?: string;
+import { useLoadServerError } from "./useLoadServerError";
+
+export interface AppMutationOptions {
+  form?: FormInstance;
 }
 
-interface UseAppMutationOptions<TData, TVariables, TContext = unknown>
-  extends Omit<UseMutationOptions<TData, AxiosError, TVariables, TContext>, 'mutationFn'> {
-  mutationFn: (variables: TVariables) => Promise<TData>;
-  successNotification?: string | NotificationConfig;
-  errorNotification?: string | NotificationConfig;
-  showSuccessNotification?: boolean;
-  showErrorNotification?: boolean;
+export interface UseAppMutationProps<TData, TError, TVariables, TContext> {
+  useAppMutationProps?: AppMutationOptions;
+  queryOptions?: UseMutationOptions<TData, TError, TVariables, TContext>;
 }
 
-export function useAppMutation<TData = unknown, TVariables = void, TContext = unknown>(
-  options: UseAppMutationOptions<TData, TVariables, TContext>
-): UseMutationResult<TData, AxiosError, TVariables, TContext> {
-  const { notification } = useFeedback();
-  const {
-    mutationFn,
-    successNotification,
-    errorNotification,
-    showSuccessNotification = true,
-    showErrorNotification = true,
-    onSuccess,
-    onError,
-    ...restOptions
-  } = options;
+type MutationOnError<TData, TError, TVariables, TContext> = NonNullable<
+  UseMutationOptions<TData, TError, TVariables, TContext>["onError"]
+>;
 
-  return useMutation<TData, AxiosError, TVariables, TContext>({
+export function useAppMutation<
+  TData = unknown,
+  TError = DefaultError,
+  TVariables = void,
+  TContext = unknown,
+>(
+  mutationFn: MutationFunction<TData, TVariables>,
+  props?: UseAppMutationProps<TData, TError, TVariables, TContext>
+): UseMutationResult<TData, TError, TVariables, TContext> {
+  const { loadServerErrors } = useLoadServerError();
+  const handleError: MutationOnError<TData, TError, TVariables, TContext> = (
+    ...args
+  ) => {
+    const [error] = args;
+    props?.queryOptions?.onError?.(...args);
+    loadServerErrors({
+      error,
+      ...props?.useAppMutationProps,
+    });
+  };
+
+  const mutation = useMutation({
+    ...props?.queryOptions,
     mutationFn,
-    onSuccess: (data, variables, context, mutationMeta) => {
-      if (showSuccessNotification && successNotification) {
-        if (typeof successNotification === 'string') {
-          notification.success({
-            message: successNotification,
-          });
-        } else {
-          notification.success({
-            message: successNotification.message,
-            description: successNotification.description,
-          });
-        }
-      }
-      onSuccess?.(data, variables, context, mutationMeta);
-    },
-    onError: (error, variables, context, mutationMeta) => {
-      if (showErrorNotification) {
-        if (errorNotification) {
-          if (typeof errorNotification === 'string') {
-            notification.error({
-              message: errorNotification,
-            });
-          } else {
-            notification.error({
-              message: errorNotification.message,
-              description: errorNotification.description,
-            });
-          }
-        } else {
-          const errorMessage = (error.response?.data as any)?.message || 'Có lỗi xảy ra';
-          notification.error({
-            message: (error.response?.data as any)?.code || 'Lỗi',
-            description: errorMessage,
-          });
-        }
-      }
-      onError?.(error, variables, context, mutationMeta);
-    },
-    ...restOptions,
+    onError: handleError,
   });
-}
 
+  const safeMutate = (...args: Parameters<typeof mutation.mutate>) => {
+    if (!mutation.isPending) {
+      return mutation.mutate(...args);
+    }
+  };
+
+  return { ...mutation, mutate: safeMutate };
+}

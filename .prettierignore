@@ -1,13 +1,26 @@
+node_modules
+.pnpm-store
+
 .next
 out
 build
-node_modules
-*.lock
+dist
+
+.cache
+.parcel-cache
+
+*.log
+
+pnpm-lock.yaml
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
-dist
-coverage
-.turbo
 
+.env
+.env.local
+.env*.local
 
+.vscode
+.idea
+
+.DS_Store
+Thumbs.db
