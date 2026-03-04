@@ -43,7 +43,7 @@ export const BASE_COLORS = {
 
 export const COLOR_TYPE_LOOKUP = {
   ["default"]: "primary",
-  ["info"]: "primary",
+  ["info"]: "info",
   ["mention"]: "primary",
   ["processing"]: "primary",
   ["undefined"]: "primary",

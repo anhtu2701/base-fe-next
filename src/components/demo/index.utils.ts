@@ -28,6 +28,7 @@ export const useDemo = () => {
     notification[type]({
       message: `${type.charAt(0).toUpperCase() + type.slice(1)} Notification`,
       description: `This is a ${type} notification demo.`,
+      duration: 0,
     });
   };
 

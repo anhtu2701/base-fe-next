@@ -15,16 +15,25 @@ export type BaseParams = {
 export type PropsWithChildrenType = PropsWithChildren;
 
 export interface Pagination {
-  page: number;
+  page?: number;
   limit?: number;
-  total: number;
-  totalPages?: number;
+  total?: number;
   lastPage?: number;
   pageSize?: number;
 }
 
+export interface Meta {
+  totalItems?: number;
+  itemsPerPage?: number;
+  itemCount?: number;
+  currentPage?: number;
+  totalPages?: number;
+}
+
 export interface ResponseData<T> {
   data: T;
+  items?: T;
+  meta?: Meta;
   pagination?: Pagination;
   message?: string;
   status?: number;

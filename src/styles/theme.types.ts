@@ -17,7 +17,7 @@ export type NamedColors = Record<
   string
 >;
 
-export type ColorType = "primary" | "success" | "warning" | "error";
+export type ColorType = "primary" | "success" | "warning" | "error" | "info";
 
 type ColorTypes = Record<ColorType, string>;
 

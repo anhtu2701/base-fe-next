@@ -17,6 +17,7 @@ const colorTypes = {
   success: "#30AF5B",
   warning: "#FFB155",
   error: "#ef4444",
+  info: "#3B82F6",
 };
 
 const indexedPrimaries = {
@@ -136,10 +137,11 @@ export const lightColorsTheme = {
   selectionDisabled: "#bfbfbf",
 
   notification: {
-    primary: "#D7EBFF",
-    success: "#EFFFF4",
-    warning: "#FFF4E7",
-    error: "#FFE2E2",
+    primary: "#E6F4FF",
+    success: "#F6FFED",
+    warning: "#FFFBE6",
+    error: "#FFF2F0",
+    info: "#f0f7ff",
   },
 
   fontSizes: FONT_SIZE,

@@ -82,5 +82,20 @@ export default styled.createGlobalStyle`
           }
         `
       )}
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+      .ant-notification-notice {
+        width: calc(100vw - 2rem);
+      }
+    }
+  }
+
+  .ant-message {
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+      .ant-message-notice-content {
+        max-width: calc(100vw - 2rem);
+        font-size: ${({ theme }) => theme.fontSizes.xs};
+      }
+    }
   }
 `;
