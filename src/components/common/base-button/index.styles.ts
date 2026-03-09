@@ -144,6 +144,18 @@ export const Button = styled(AntButton)<BtnProps>`
             );
           }
         }
+
+        &.ant-btn-primary {
+          &:focus,
+          &:not(:disabled):hover {
+            background-color: rgba(
+              ${props.theme.rgb[colorTypeFrom(props.$severity)]},
+              0.3
+            );
+            border-color: ${props.theme[colorTypeFrom(props.$severity)]};
+            color: ${props.theme[colorTypeFrom(props.$severity)]};
+          }
+        }
       `}
     `}
 `;

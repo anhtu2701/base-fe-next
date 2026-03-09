@@ -3,6 +3,7 @@
 import React, { PropsWithChildren, useLayoutEffect, useState } from "react";
 
 import { LoadingOutlined } from "@ant-design/icons";
+import "@ant-design/v5-patch-for-react-19";
 import { ConfigProvider, App as FeedbackProvider, Spin } from "antd";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
