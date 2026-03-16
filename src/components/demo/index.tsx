@@ -43,6 +43,7 @@ import {
   BaseSpin,
   BaseSteps,
   BaseSwitch,
+  BaseTable,
   BaseTabs,
   BaseTag,
   BaseTooltip,
@@ -497,61 +498,18 @@ const DemoComponent = () => {
       {/* ================== TABLE & PAGINATION ================== */}
       <S.SectionTitle>Table & Pagination</S.SectionTitle>
       <S.DemoBlock>
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            marginBottom: 16,
-          }}
-        >
-          <thead>
-            <tr>
-              {tableColumns.map((col) => (
-                <th
-                  key={col.key}
-                  style={{
-                    textAlign: "left",
-                    padding: "8px 12px",
-                    borderBottom: `2px solid`,
-                  }}
-                >
-                  {col.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((row) => (
-              <tr key={row.key}>
-                <td
-                  style={{
-                    padding: "8px 12px",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  {row.name}
-                </td>
-                <td
-                  style={{
-                    padding: "8px 12px",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  {row.age}
-                </td>
-                <td
-                  style={{
-                    padding: "8px 12px",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  {row.email}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <BasePagination defaultCurrent={1} total={50} showSizeChanger />
+        <BaseTable
+          columns={tableColumns}
+          dataSource={tableData}
+          pagination={false}
+          bordered
+        />
+        <BasePagination
+          size="default"
+          defaultCurrent={1}
+          total={50}
+          showSizeChanger
+        />
       </S.DemoBlock>
 
       {/* ================== POPOVER & POPCONFIRM ================== */}

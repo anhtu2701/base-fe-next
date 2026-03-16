@@ -8,6 +8,7 @@ export const Pagination = styled(AntdPagination)`
       display: flex;
       gap: 8px;
       justify-content: flex-end;
+      align-items: center;
       margin-top: 20px;
 
       .ant-pagination-item,
@@ -46,8 +47,14 @@ export const Pagination = styled(AntdPagination)`
         background: ${({ theme }) => theme.textMain};
 
         a {
-          color: ${({ theme }) => theme.white};
+          color: ${({ theme }) => theme.textMain};
           font-weight: ${({ theme }) => theme.fontWeights.bold};
+        }
+
+        &:hover {
+          a {
+            color: ${({ theme }) => theme.textMain};
+          }
         }
       }
 
@@ -68,7 +75,7 @@ export const Pagination = styled(AntdPagination)`
         &:not(.ant-pagination-disabled) .ant-pagination-item-link:hover,
         &:not(.ant-pagination-disabled)
           .ant-pagination-item-link:focus-visible {
-          color: ${({ theme }) => theme.primary6};
+          color: ${({ theme }) => theme.textMain};
           background: transparent;
         }
       }
